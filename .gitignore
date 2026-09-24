@@ -1,0 +1,45 @@
+#gitignore template. Prompt to change over time
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environment variables & secrets (CRITICAL for FastAPI)
+.env
+.env.*
+!.env.example
+
+# Databases (SQLite databases often used during FastAPI development)
+*.db
+*.sqlite3
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Linters, Type Checkers, and Formatters
+.mypy_cache/
+.ruff_cache/
+.black
+.pytype/
+
+# OS-specific temporary files
+.DS_Store
+Thumbs.db
+
+# IDEs and Code Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
