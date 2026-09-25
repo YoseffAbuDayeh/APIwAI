@@ -1,6 +1,8 @@
 import requests
 import json
-import re
+import os
+
+URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 
 Prompt ="""You are a maintenance ticket parser. You will receive raw, possibly imperfect OCR text extracted from a handwritten note, which may contain stray characters, misreads, or noise not part of the actual message. Convert it into structured JSON with exactly these fields: machine_id, date, issue, started, priority, reported_by. Ignore clearly irrelevant noise (stray numbers, symbols, or fragments that don't fit the sentence). If a field isn't present in the text, use null.
 
@@ -24,7 +26,7 @@ def json_maker(text:str) -> dict:
     :return:        A dictionary representing the structured JSON.
     '''
     response = requests.post(
-        "http://localhost:11434/api/generate",
+        f"{URL}/api/generate",
         json={
             "model": "llama3.2:3b",
             "prompt": Prompt + text,

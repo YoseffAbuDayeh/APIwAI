@@ -47,9 +47,6 @@ async def image(file: UploadFile = File(...)):
 
     #Calls the method and stores the lines in line_images
     line_images = imageHelper.segmentLines(image)
-    print(f"Number of lines detected: {len(line_images)}")
-
-    print(line_images)
 
     extracted_lines = []
     #It uses the TrOCRP pretrained model to read the data from the image
@@ -58,16 +55,11 @@ async def image(file: UploadFile = File(...)):
         generated_ids = model.generate(pixel_values, max_new_tokens=200, num_beams=5)
         #max_new_tokens is the max number of words that it will show.
         text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
-        print(f"Line {idx}: {text}")
         extracted_lines.append(text)
 
     extracted_text = "\n".join(extracted_lines)
 
-
-    print("Extracted text = " + extracted_text)
-
     # Makes the extracted text a JSON using the Local LLM
     extracted_text = ollamaPart.json_maker(extracted_text)
 
-    print(extracted_text)
     return {"extracted_text": extracted_text}
